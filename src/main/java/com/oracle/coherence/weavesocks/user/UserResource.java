@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -18,8 +19,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-
-import io.helidon.security.providers.httpauth.HttpBasicAuthProvider;
 
 import com.tangosol.net.NamedCache;
 
@@ -35,7 +34,7 @@ public class UserResource {
     static final String HEADER_AUTHENTICATION = "Authorization";
     static final String BASIC_PREFIX = "Basic ";
 
-    private static final Logger LOGGER = Logger.getLogger(HttpBasicAuthProvider.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UserResource.class.getName());
     private static final Pattern CREDENTIAL_PATTERN = Pattern.compile("(.*):(.*)");
 
     @Inject
@@ -98,4 +97,34 @@ public class UserResource {
                 .entity(message)
                 .build();
     }
+
+    @PostConstruct
+    public void createTestUsers() {
+        LOGGER.info("Creating test users...");
+        User user   = new User("Test", "User", "user@weavesocks.com", "user", "pass")
+                .addCard(new Card("1234123412341234", "12/19", "123"))
+                .addAddress(new Address("123", "Main St", "Springfield", "12123", "USA"));
+        User aleks  = new User("Aleks", "Seovic", "aleks@weavesocks.com", "aleks", "pass")
+                .addCard(new Card("4567456745674567", "10/20", "007"))
+                .addAddress(new Address("555", "Spruce St", "Tampa", "33633", "USA"));
+        User bin    = new User("Bin", "Chen", "bin@weavesocks.com", "bin", "pass")
+                .addCard(new Card("3691369136913691", "01/21", "789"))
+                .addAddress(new Address("123", "Boston St", "Boston", "01555", "USA"));
+        User harvey = new User("Harvey", "Raja", "harvey@weavesocks.com", "harvey", "pass")
+                .addCard(new Card("6854657645765476", "03/22", "456"))
+                .addAddress(new Address("123", "O'Farrell St", "San Francisco", "99123", "USA"));
+        User randy  = new User("Randy", "Stafford", "randy@weavesocks.com", "randy", "pass")
+                .addCard(new Card("6543123465437865", "08/23", "042"))
+                .addAddress(new Address("123", "Mountain St", "Denver", "74765", "USA"));
+
+        register(user, aleks, bin, harvey, randy);
+    }
+
+    private void register(User... users) {
+        for (User user : users) {
+            this.users.put(user.getId(), user);
+            LOGGER.info("Created user: " + user.getFirstName() + " " + user.getLastName());
+        }
+    }
+
 }
