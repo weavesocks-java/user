@@ -7,13 +7,11 @@ import javax.json.bind.adapter.JsonbAdapter;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
-public class Address implements Serializable {
+import com.oracle.io.pof.annotation.Portable;
+import com.oracle.io.pof.annotation.PortableType;
+
+public class Address extends AddressDTO {
     private Id id;
-    private String number;
-    private String street;
-    private String city;
-    private String postcode;
-    private String country;
 
     public Address() {
     }

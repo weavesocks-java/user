@@ -7,11 +7,11 @@ import javax.json.bind.adapter.JsonbAdapter;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 
-public class Card implements Serializable {
+import com.oracle.io.pof.annotation.Portable;
+import com.oracle.io.pof.annotation.PortableType;
+
+public class Card extends CardDTO {
     private Id id;
-    private String longNum;
-    private String expires;
-    private String ccv;
 
     public Card() {
     }

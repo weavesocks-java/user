@@ -59,6 +59,11 @@
             <version>${helidon.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.helidon.microprofile.grpc</groupId>
+            <artifactId>helidon-microprofile-grpc-server</artifactId>
+            <version>${helidon.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-binding</artifactId>
         </dependency>
@@ -90,6 +95,11 @@
             <artifactId>coherence-helidon</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.oracle.io</groupId>
+            <artifactId>com.oracle.io.pof</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 
@@ -106,6 +116,11 @@
                     <groupId>org.jboss.jandex</groupId>
                     <artifactId>jandex-maven-plugin</artifactId>
                     <version>1.0.6</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.oracle.io</groupId>
+                    <artifactId>pof-maven-plugin</artifactId>
+                    <version>1.0.0-SNAPSHOT</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -183,6 +198,18 @@
                 </executions>
             </plugin>
             <plugin>
+              <groupId>com.oracle.io</groupId>
+              <artifactId>pof-maven-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>instrument</id>
+                  <goals>
+                    <goal>instrument</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+            <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.12</version>
@@ -198,7 +225,7 @@
                 </executions>
                 <configuration>
                     <repository>weavesocks/${project.artifactId}</repository>
-                    <tag>1.0.0</tag>
+                    <tag>2.0.0</tag>
                     <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
                 </configuration>
             </plugin>
