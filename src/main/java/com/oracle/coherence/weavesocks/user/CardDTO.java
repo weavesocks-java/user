@@ -19,4 +19,13 @@ public class CardDTO implements Serializable {
         this.expires = card.expires;
         this.ccv = card.ccv;
     }
+
+    @Override
+    public String toString() {
+        return "CardDTO{" +
+                "longNum='" + longNum + '\'' +
+                ", expires='" + expires + '\'' +
+                ", ccv='" + ccv + '\'' +
+                '}';
+    }
 }

@@ -23,4 +23,15 @@ public class AddressDTO implements Serializable {
         this.postcode = address.postcode;
         this.country = address.country;
     }
+
+    @Override
+    public String toString() {
+        return "AddressDTO{" +
+                "number='" + number + '\'' +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", postcode='" + postcode + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
 }
